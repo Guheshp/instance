@@ -1,0 +1,2 @@
+# instance
+creating ec2 
