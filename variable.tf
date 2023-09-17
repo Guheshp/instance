@@ -1,18 +1,19 @@
 variable "ami" {
-    type = string
-    default = "ami-05552d2dcf89c9b24"
+  type    = string
 }
 
 variable "instance_type" {
-    type = string
-    default = "t2.micro"
-  
+  type    = string
 }
 
-
-  
-
 variable "aws_s3_bucket_name" {
-    default = "guheshpanjagall"
-  
+  type = string
+}
+
+variable "keypairs" {
+  type = string
+}
+
+variable "ports" {
+  type = list(number)
 }
