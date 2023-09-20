@@ -1,7 +1,25 @@
 
+data "aws_ami" "ubuntu" {
+     most_recent      = true
+      owners           = ["099720109477"]
+
+    filter {
+      name = "name"
+      values = ["${var.image_name}"]
+    }
+    filter {
+      name = "root-device-type"
+      values = ["ebs"]
+    }
+    filter {
+      name = "virtualization-type"
+      values = ["hvm"]
+    }
+}
+
 #aws instance ----------------
 resource "aws_instance" "grow" {
-  ami             = var.ami
+  ami             = "${data.aws_ami.ubuntu.id}"
   instance_type   = var.instance_type
   key_name        = var.keypairs
   vpc_security_group_ids = [ "${aws_security_group.allow_sg.id}" ]
@@ -9,7 +27,7 @@ resource "aws_instance" "grow" {
     name = "terraform-instance"
   }
 
-  user_data = file("${path.module}/script.sh")
+  #user_data = file("${path.module}/script.sh")
 
 #provisoner connection filr , remote_exec , local_exec
   connection {
@@ -49,7 +67,7 @@ resource "aws_instance" "grow" {
      envname = "envalue"
    }
   }
-  
+
   provisioner "local-exec" {
    working_dir = "/tmp"
     command = "echo ${self.private_ip} > private.txt" 
@@ -72,9 +90,8 @@ resource "aws_instance" "grow" {
     script = "./testscript.sh"
     
   }
-
-
-
-
-
+   provisioner "remote-exec" {
+    script = "./another.sh"
+    
+  }
 }

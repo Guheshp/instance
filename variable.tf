@@ -17,3 +17,7 @@ variable "keypairs" {
 variable "ports" {
   type = list(number)
 }
+
+variable "image_name" {
+  type = string
+}
