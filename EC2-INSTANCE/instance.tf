@@ -80,7 +80,7 @@ resource "aws_instance" "grow" {
 
   }
 
-  provisioner "remote-exec" {
+  /* provisioner "remote-exec" {
     inline = [
        "ifconfig > /tmp/ifconfig.output",
        "echo 'sunshine'  > /tmp/example.txt" 
@@ -93,5 +93,5 @@ resource "aws_instance" "grow" {
    provisioner "remote-exec" {
     script = "./another.sh"
     
-  }
+  } */
 }
